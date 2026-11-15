@@ -1,0 +1,1384 @@
+@import "tailwindcss";
+
+/* ---------- Tokens ---------- */
+
+:root {
+  --bg: #121212;
+  --panel: #0f0f0f;
+  --stroke: #3a3a3a;
+  --text-headline: #ffffff;
+  --text-body: #b8b8b8;
+  --text-quiet: #828282;
+  --accent: #7dff5a;
+  --accent-ink: #06210b;
+
+  --font-sans: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+
+  --size-small: 0.875rem;
+  --size-body: 1.0625rem;
+  --size-lead: clamp(1.75rem, 1rem + 3.2vw, 3.75rem);
+  --size-title: clamp(2.5rem, 1.2rem + 5.4vw, 6.25rem);
+  --size-hero: clamp(2.5rem, 0.5rem + 5.6vw, 6.5rem);
+
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --ease: cubic-bezier(0.6, 0, 0.3, 1);
+}
+
+html[data-theme="light"] {
+  --bg: #fcfcfc;
+  --panel: #f3f3f3;
+  --stroke: #dedede;
+  --text-headline: #121212;
+  --text-body: #4f4f4f;
+  --text-quiet: #727272;
+  --accent: #128a2a;
+  --accent-ink: #ffffff;
+}
+
+/* ---------- Base ---------- */
+
+html {
+  background: var(--bg);
+}
+
+body {
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-size: var(--size-body);
+  font-weight: 300;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
+}
+
+/* The serif draws smaller than the sans at the same size, so it is nudged up
+   wherever the two sit side by side. */
+em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.12em;
+  letter-spacing: -0.01em;
+}
+
+a,
+button {
+  outline-offset: 4px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.curtain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #04160a;
+}
+
+.hero-fade {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(to bottom, transparent, var(--bg) 88%);
+  transition: background 0.4s var(--ease);
+}
+
+.mark {
+  position: absolute;
+  z-index: 5;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.3rem 1rem 0.3rem 0.55rem;
+  background: var(--text-headline);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: var(--size-small);
+  letter-spacing: 0.02em;
+  clip-path: polygon(0 0, 100% 0, 82% 50%, 100% 100%, 0 100%);
+}
+
+.mark-on-hero {
+  background: #ffffff;
+  color: #121212;
+}
+
+.hero-body {
+  position: relative;
+  margin-block: auto;
+  padding: 3rem var(--gutter) 7rem;
+  width: min(100%, 78rem);
+  margin-inline: auto;
+}
+
+.hero-title {
+  font-size: var(--size-hero);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+}
+
+/* A line that slides up from behind its own edge when the page opens. */
+.rise {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+}
+
+.rise > span {
+  display: block;
+}
+
+.hero-line-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.12em;
+  letter-spacing: -0.01em;
+}
+
+/* The stagger: each line starts further in, then the pattern repeats. */
+.hero-line-2 {
+  padding-left: 18%;
+}
+
+.hero-line-3 {
+  padding-left: 4%;
+}
+
+.hero-line-4 {
+  padding-left: 26%;
+}
+
+.hero-notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 17rem));
+  gap: 2rem clamp(2rem, 8vw, 8rem);
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  padding-left: 4%;
+  font-size: var(--size-small);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* ---------- Page shell ---------- */
+
+.section,
+.page {
+  width: min(100%, 86rem);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(4rem, 10vw, 9rem);
+}
+
+.page {
+  min-height: 100svh;
+  padding-top: clamp(7rem, 14vw, 11rem);
+}
+
+.page-title {
+  font-size: var(--size-title);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  color: var(--text-headline);
+  margin-bottom: clamp(2rem, 5vw, 4.5rem);
+}
+
+.intro {
+  padding-top: clamp(2rem, 6vw, 5rem);
+}
+
+/* Headings inside a page, one size down from the page title. */
+.section-title {
+  font-size: var(--size-title);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  color: var(--text-headline);
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.intro-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.intro-text {
+  font-size: var(--size-lead);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--text-headline);
+  max-width: 26em;
+}
+
+/* Small green symbols set between the words. */
+.intro-symbol svg {
+  display: inline-block;
+  width: 0.78em;
+  height: 0.78em;
+  vertical-align: -0.06em;
+  color: var(--accent);
+}
+
+.intro-key {
+  text-decoration: underline;
+  text-decoration-thickness: 0.045em;
+  text-underline-offset: 0.14em;
+}
+
+/* The reading ruler: a column of ticks with a pointer beside it. */
+.intro-ruler {
+  position: relative;
+  flex: none;
+  width: 0.5rem;
+  margin-block: 0.6rem;
+  background: repeating-linear-gradient(to bottom, var(--text-quiet) 0, var(--text-quiet) 1px, transparent 1px, transparent 0.9rem);
+}
+
+.intro-pointer {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin: -0.3rem 0 0 0.4rem;
+  border-block: 0.3rem solid transparent;
+  border-right: 0.45rem solid var(--text-headline);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pills li {
+  font-size: var(--size-small);
+  padding: 0.3rem 0.85rem;
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  color: var(--text-headline);
+}
+
+.text-link,
+.back-link {
+  display: inline-block;
+  color: var(--text-headline);
+  border-bottom: 1px solid var(--accent);
+  transition: color 0.3s;
+}
+
+.text-link:hover,
+.back-link:hover {
+  color: var(--accent);
+}
+
+.back-link {
+  margin-bottom: 2rem;
+  font-size: var(--size-small);
+}
+
+/* ---------- Link to the next page ---------- */
+
+.next-page {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  width: min(100%, 86rem);
+  margin: clamp(4rem, 10vw, 8rem) auto 0;
+  padding: 2rem var(--gutter) 3rem;
+  border-top: 1px solid var(--stroke);
+  color: var(--text-headline);
+}
+
+.page > .next-page {
+  padding-inline: 0;
+}
+
+.next-page-label {
+  font-size: var(--size-small);
+  color: var(--text-quiet);
+}
+
+.next-page-name {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--size-title);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  transition: transform 0.5s var(--ease), color 0.3s;
+}
+
+.next-page:hover .next-page-name {
+  transform: translateX(-1rem);
+  color: var(--accent);
+}
+
+/* ---------- Work list ---------- */
+
+/* Rows of large, centred names. The whole list is muted, and the row under
+   the pointer lights up while a strip of ribs sweeps in behind it. */
+.project-head {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1.5rem;
+  padding: clamp(0.5rem, 1.1vw, 1rem) 1rem;
+  color: var(--text-quiet);
+  transition: color 0.3s;
+}
+
+.project-name {
+  display: flex;
+  align-items: center;
+  gap: 0.18em;
+  font-size: clamp(2rem, 0.6rem + 5.6vw, 6.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.glyph {
+  flex: none;
+  width: 0.78em;
+  height: 0.78em;
+  transition: transform 0.6s var(--ease);
+}
+
+.project-head:hover .glyph,
+.project-head:focus-visible .glyph {
+  transform: rotate(90deg);
+}
+
+.project-side {
+  font-size: var(--size-body);
+}
+
+.project-side-end {
+  text-align: right;
+}
+
+.project-head::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.5) 0,
+      transparent 5px,
+      rgba(255, 255, 255, 0.06) 11px,
+      rgba(0, 0, 0, 0.35) 15px
+    ),
+    linear-gradient(to right, #0b3d14, #1f9a31 55%, #0a2a12);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease);
+}
+
+.project-head:hover::before,
+.project-head:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.project-head:hover,
+.project-head:focus-visible {
+  color: #ffffff;
+}
+
+.project-tagline,
+.case-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.125rem, 0.9rem + 0.8vw, 1.625rem);
+  color: var(--text-body);
+}
+
+.project-status {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: var(--size-small);
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ---------- Project page ---------- */
+
+.case-tagline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: calc(-1 * clamp(1rem, 3vw, 3rem));
+  padding-bottom: clamp(2rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--stroke);
+}
+
+.case {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: 3rem clamp(2rem, 6vw, 6rem);
+  padding-top: clamp(2rem, 5vw, 4rem);
+}
+
+.case h2,
+.background h3 {
+  font-size: var(--size-small);
+  color: var(--text-quiet);
+  padding-bottom: 1rem;
+}
+
+.case-links {
+  display: grid;
+  justify-items: start;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+.case-summary {
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.875rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--text-headline);
+  padding-bottom: 2rem;
+}
+
+.case-points li {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--stroke);
+  max-width: 44rem;
+}
+
+/* ---------- Skills ---------- */
+
+/* Two full-width bands of skill names, drifting in opposite directions. */
+.marquee {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-bottom: clamp(3rem, 7vw, 6rem);
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 70s linear infinite;
+}
+
+.marquee-track-reverse {
+  animation-direction: reverse;
+}
+
+/* Hovering the bands slows nothing down but lets you read: it pauses them. */
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-track span {
+  display: flex;
+  align-items: center;
+  font-size: clamp(2.25rem, 1rem + 5vw, 5.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-quiet);
+  transition: color 0.3s;
+}
+
+.marquee-track span:hover {
+  color: var(--text-headline);
+}
+
+/* A small green diamond between names. */
+.marquee-track span::after {
+  content: "";
+  width: 0.22em;
+  height: 0.22em;
+  margin-inline: 0.45em;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.skill-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: center;
+  gap: 1rem 1.5rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+}
+
+/* The divider is its own element so it can draw itself across the page. */
+.skill-row::before,
+.skill-row:last-child::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--stroke);
+  transform: scaleX(var(--line, 1));
+  transform-origin: left;
+}
+
+.skill-row:last-child::after {
+  inset: auto 0 0 0;
+}
+
+.skill-row dt {
+  display: grid;
+  gap: 1rem;
+}
+
+.skill-name {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.75rem, 1rem + 2.2vw, 3.25rem);
+  line-height: 1;
+  color: var(--text-headline);
+}
+
+.skill-name > span {
+  display: inline-block;
+}
+
+/* The nudge on hover is on the wrapper, because the inner span's transform
+   belongs to the entrance animation. */
+.skill-name {
+  transition: transform 0.5s var(--ease);
+}
+
+.skill-row:hover .skill-name {
+  transform: translateX(0.75rem);
+}
+
+/* One rib per skill in the group. */
+.skill-ribs {
+  display: flex;
+  gap: 3px;
+  height: 1.75rem;
+}
+
+.skill-ribs i {
+  width: 0.5rem;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.45), transparent 40%, rgba(0, 0, 0, 0.3)),
+    linear-gradient(to bottom, #0b3d14, #0f5a1d 50%, #0a2a12);
+  transform-origin: bottom;
+  transition: filter 0.4s, transform 0.4s var(--ease);
+}
+
+/* Hover a row and its ribs light up one after another. */
+.skill-row:hover .skill-ribs i {
+  filter: brightness(2.6) saturate(1.3);
+  transform: scaleY(1.25);
+}
+
+.skill-row .pills li {
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.skill-row .pills li:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  transform: translateY(-2px);
+}
+
+/* ---------- About ---------- */
+
+.background {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem clamp(2rem, 6vw, 6rem);
+}
+
+.background h3 {
+  border-bottom: 1px solid var(--stroke);
+}
+
+/* The photo and the "about me" text, side by side. */
+.about-me {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-top: 0;
+}
+
+.about-me .intro-text {
+  font-size: clamp(1.5rem, 1rem + 1.7vw, 2.5rem);
+  line-height: 1.22;
+}
+
+.about-facts {
+  padding-top: clamp(5rem, 11vw, 9rem);
+}
+
+/* The photo: black and white, behind ribs that lift off when the page
+   opens. Hovering washes it in green and leans it in. */
+.portrait {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: var(--panel);
+}
+
+.portrait-photo {
+  transition: transform 0.9s var(--ease);
+}
+
+.portrait-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.portrait:hover .portrait-photo {
+  transform: scale(1.05);
+}
+
+.portrait-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #35d63a, #0b3d14);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.portrait:hover .portrait-tint {
+  opacity: 0.85;
+}
+
+.portrait-ribs {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  pointer-events: none;
+}
+
+.portrait-ribs i {
+  margin-inline: -0.5px;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.45), transparent 35%, rgba(255, 255, 255, 0.05) 80%, rgba(0, 0, 0, 0.3)),
+    linear-gradient(to bottom, #0b3d14, #1f9a31 45%, #04160a);
+  transform-origin: top;
+}
+
+.facts li {
+  display: grid;
+  gap: 0.15rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.facts strong {
+  font-weight: 400;
+  font-size: 1.375rem;
+  letter-spacing: -0.01em;
+  color: var(--text-headline);
+}
+
+.fact-meta {
+  font-size: var(--size-small);
+  color: var(--text-quiet);
+}
+
+/* ---------- Contact ---------- */
+
+.page-contact .page-title {
+  font-size: clamp(3.5rem, 1rem + 12vw, 13rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.contact-email {
+  display: inline-block;
+  font-size: clamp(1.125rem, 0.8rem + 1.6vw, 2.25rem);
+  color: var(--text-headline);
+  border-bottom: 1px solid var(--accent);
+  overflow-wrap: anywhere;
+  transition: color 0.3s;
+}
+
+.contact-email:hover,
+.contact-links a:hover,
+.site-footer a:hover {
+  color: var(--accent);
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin-top: 3rem;
+  font-size: 1.25rem;
+  color: var(--text-headline);
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  width: min(100%, 86rem);
+  margin-inline: auto;
+  padding: 1.5rem var(--gutter) 6.5rem;
+  font-size: var(--size-small);
+  color: var(--text-quiet);
+}
+
+.site-footer ul {
+  display: flex;
+  gap: 2rem;
+  color: var(--text-headline);
+}
+
+/* ---------- Page transition ---------- */
+
+.transition {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  pointer-events: none;
+}
+
+.transition span {
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.45), transparent 35%, rgba(255, 255, 255, 0.05) 80%, rgba(0, 0, 0, 0.3)),
+    linear-gradient(to bottom, #0b3d14, #04160a 70%);
+  box-shadow: 0 -3px 0 var(--accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+
+.transition-cover {
+  pointer-events: auto;
+}
+
+.transition-cover span {
+  transform: scaleY(1);
+  transition: transform 0.6s var(--ease);
+}
+
+.transition-reveal span {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.6s var(--ease);
+}
+
+/* ---------- Bottom navigation ---------- */
+
+.nav {
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  /* Open state (top of Home): wide, links spread out, no background. */
+  width: min(calc(100% - 2rem), 64rem);
+  padding: 0.6rem 0.6rem 0.6rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  font-size: var(--size-small);
+  color: var(--text-headline);
+  transition:
+    width 0.7s var(--ease),
+    background-color 0.5s,
+    border-color 0.5s,
+    backdrop-filter 0.5s;
+}
+
+/* Compact state (after scrolling, and on every other page): the bar pulls
+   in to a small pill with a blurred backdrop. */
+.nav.is-compact {
+  width: min(calc(100% - 2rem), 30rem);
+  border-color: var(--stroke);
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.nav a:not(.nav-talk):hover,
+.nav a.is-current {
+  color: var(--accent);
+}
+
+.nav-theme {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+}
+
+.theme-dot {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  transition: background 0.3s;
+}
+
+.theme-dot-light {
+  background: currentColor;
+}
+
+.nav-talk {
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+
+/* ---------- Rib details ---------- */
+
+/* Canvases outside the hero sit on the page, so they need no backdrop. */
+.curtain-band,
+.curtain-floor {
+  background: transparent;
+}
+
+/* Project pages: a band of ribs with that project's own light pattern. */
+.case-band {
+  position: relative;
+  height: clamp(9rem, 22vw, 17rem);
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  overflow: hidden;
+}
+
+/* Project pages: screenshots, framed like a window. */
+.case-shot {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+  border: 1px solid var(--stroke);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #000000;
+}
+
+.case-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.case-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  margin-top: clamp(3rem, 7vw, 6rem);
+}
+
+.case-gallery .case-shot {
+  margin-top: 0;
+}
+
+.case-shot-wide {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 760px) {
+  .case-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Contact: the same flowing wall of ribs as the Home hero fills the page,
+   kept bright. The text on top of it is always near-black, in either theme. */
+.contact-wrap {
+  position: relative;
+  isolation: isolate;
+}
+
+.contact-backdrop {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* A shorter fade than on Home, so the links stay on the dark ribs. */
+.contact-backdrop .hero-fade {
+  height: 20%;
+}
+
+.contact-wrap .page-title,
+.contact-wrap .contact-email,
+.contact-wrap .contact-links {
+  color: #04160a;
+}
+
+.contact-wrap .contact-email {
+  border-bottom-color: #04160a;
+}
+
+.contact-wrap .contact-email:hover,
+.contact-wrap .contact-links a:hover {
+  color: #ffffff;
+}
+
+/* The pointer itself. These are native cursors (small SVG images handed to
+   the browser), so the system draws them and they can never lag behind.
+   A ring by default, and a filled ring over links and buttons. */
+:root {
+  --cursor-ring: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%237dff5a' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%237dff5a'/%3E%3C/svg%3E");
+  --cursor-solid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%237dff5a' fill-opacity='0.35' stroke='%237dff5a' stroke-width='2'/%3E%3C/svg%3E");
+}
+
+html[data-theme="light"] {
+  --cursor-ring: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23128a2a' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%23128a2a'/%3E%3C/svg%3E");
+  --cursor-solid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23128a2a' fill-opacity='0.35' stroke='%23128a2a' stroke-width='2'/%3E%3C/svg%3E");
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html {
+    cursor: var(--cursor-ring) 16 16, auto;
+  }
+
+  a,
+  button {
+    cursor: var(--cursor-solid) 16 16, pointer;
+  }
+
+  /* Over labelled elements the green disc becomes the cursor, so the native
+     one is hidden. Only while the disc is actually running. */
+  .has-cursor-follow [data-cursor],
+  .has-cursor-follow [data-cursor] * {
+    cursor: none;
+  }
+}
+
+/* The animated disc that glides after the pointer (see Cursor.tsx).
+   Only transform and opacity ever change, so it stays smooth. */
+.cursor-follow {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor-disc,
+.cursor-label {
+  position: absolute;
+  top: -2.5rem;
+  left: -2.5rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+
+.cursor-disc {
+  background: var(--accent);
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 0.45s var(--ease), opacity 0.35s;
+}
+
+.cursor-label {
+  display: grid;
+  place-items: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: transform 0.45s var(--ease), opacity 0.25s;
+}
+
+/* Over a link or button: a soft halo. */
+.cursor-follow.is-halo .cursor-disc {
+  opacity: 0.22;
+  transform: scale(0.75);
+}
+
+/* Over something with a label: a solid disc with the word on it. */
+.cursor-follow.is-label .cursor-disc {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cursor-follow.is-label .cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-follow {
+    display: none;
+  }
+}
+
+/* ---------- Project boards (Home) ---------- */
+
+.showcase + .showcase {
+  margin-top: clamp(4rem, 9vw, 8rem);
+}
+
+.showcase-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.showcase-kind {
+  display: inline-block;
+  margin-bottom: 0.9rem;
+  padding: 0.25rem 0.85rem;
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  font-size: var(--size-small);
+  color: var(--text-headline);
+}
+
+.showcase-name {
+  font-size: clamp(2rem, 1rem + 2.6vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--text-headline);
+}
+
+/* Five tiles: a wide one and a tall one, then three small ones. */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: clamp(15rem, 31vw, 27rem) clamp(9rem, 17vw, 15rem);
+  gap: clamp(0.75rem, 1.6vw, 1.5rem);
+}
+
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.tile-1 {
+  grid-column: span 2;
+}
+
+.tile-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.9s var(--ease);
+}
+
+/* Hover: every picture on the board leans in a little. */
+.tiles:hover .tile-inner {
+  transform: scale(1.04);
+}
+
+/* A wall of still ribs. Used behind screenshots and on its own. */
+.tile-shot,
+.tile-still {
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.5) 0,
+      transparent 5px,
+      rgba(255, 255, 255, 0.06) 11px,
+      rgba(0, 0, 0, 0.35) 15px
+    ),
+    radial-gradient(circle at 70% 30%, #2fbf3a, #0b3d14 55%, #04160a);
+}
+
+.tile-5.tile-shot,
+.tile-5.tile-still {
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.5) 0,
+      transparent 5px,
+      rgba(255, 255, 255, 0.06) 11px,
+      rgba(0, 0, 0, 0.35) 15px
+    ),
+    radial-gradient(circle at 20% 80%, #2fbf3a, #0b3d14 55%, #04160a);
+}
+
+/* Screenshots sit inset from the top-left corner and run off the other
+   two edges, like a window pushed partly out of frame. */
+.tile-shot .tile-inner {
+  inset: 9% 0 0 9%;
+}
+
+.tile-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  border-top-left-radius: 0.5rem;
+  box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.45);
+}
+
+.tile-ribs .tile-inner,
+.tile-still .tile-inner {
+  display: grid;
+  place-items: center;
+}
+
+.tile-ribs .glyph,
+.tile-still .glyph {
+  position: relative;
+  width: 34%;
+  height: auto;
+  max-height: 60%;
+  color: #ffffff;
+}
+
+.tile-still .glyph {
+  width: 30%;
+}
+
+.tile-text {
+  border: 1px solid var(--stroke);
+  background: var(--panel);
+}
+
+.tile-text .tile-inner {
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(1rem, 2vw, 1.75rem);
+}
+
+.tile-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.5rem, 1rem + 1.7vw, 2.75rem);
+  line-height: 1.05;
+  color: var(--text-headline);
+}
+
+.tile-point {
+  font-size: var(--size-small);
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 13rem 13rem 9rem 9rem;
+  }
+
+  .tile-2,
+  .tile-5 {
+    grid-column: span 2;
+  }
+}
+
+/* ---------- Startup sequence ---------- */
+
+.preloader {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: none;
+  color: #ffffff;
+}
+
+/* Shown only while the script in layout.tsx has switched it on. */
+html[data-preloading] .preloader {
+  display: block;
+}
+
+html[data-preloading] {
+  overflow: hidden;
+}
+
+.preloader-ribs {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+}
+
+/* Each rib is dark glass. The slight overlap hides hairline gaps. */
+.preloader-rib {
+  position: relative;
+  margin-inline: -0.5px;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.45), transparent 35%, rgba(255, 255, 255, 0.05) 80%, rgba(0, 0, 0, 0.3)),
+    linear-gradient(to bottom, #072a0e, #04160a 70%);
+  will-change: transform;
+}
+
+/* The lit version of the same rib, faded in as the light passes. */
+.preloader-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.45), transparent 35%, rgba(255, 255, 255, 0.08) 80%, rgba(0, 0, 0, 0.3)),
+    linear-gradient(to bottom, #0b3d14, #35d63a 45%, #0a2a12);
+}
+
+.preloader-centre {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.25rem;
+}
+
+.preloader-name {
+  font-size: var(--size-hero);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.preloader-char-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  vertical-align: top;
+}
+
+.preloader-char {
+  display: inline-block;
+  visibility: hidden;
+}
+
+.preloader-count {
+  font-size: var(--size-small);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 760px) {
+  .preloader-ribs {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .preloader-rib:nth-child(n + 13) {
+    display: none;
+  }
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 760px) {
+  .hero-line-2,
+  .hero-line-4 {
+    padding-left: 8%;
+  }
+
+  .hero-line-3,
+  .hero-notes {
+    padding-left: 0;
+  }
+
+  .hero-notes,
+  .background {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-row,
+  .case {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .intro-ruler {
+    display: none;
+  }
+
+  .about-me {
+    grid-template-columns: 1fr;
+  }
+
+  /* On a phone there is no room for the side labels: names only. */
+  .project-head {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .project-side {
+    display: none;
+  }
+
+  .case {
+    gap: 2.5rem;
+  }
+
+  .nav {
+    gap: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+
+  /* Nothing would lift the ribs, so do not cover the photo at all. */
+  .portrait-ribs {
+    display: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
