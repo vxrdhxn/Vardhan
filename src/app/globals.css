@@ -915,7 +915,7 @@ button:focus-visible {
 
 .case-gallery {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: start;
   gap: clamp(0.75rem, 1.6vw, 1.5rem);
   margin-top: clamp(3rem, 7vw, 6rem);
@@ -926,7 +926,7 @@ button:focus-visible {
 }
 
 .case-shot-wide {
-  grid-column: 1 / -1;
+  grid-column: span 2;
 }
 
 @media (max-width: 760px) {

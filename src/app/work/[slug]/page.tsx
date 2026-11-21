@@ -97,9 +97,9 @@ export default async function ProjectPage({ params }: Params) {
       {moreImages.length > 0 && (
         <div className="case-gallery">
           {moreImages.map((image) => {
-            // Only a large landscape screenshot earns a full row. A small
-            // one would be stretched and blurry.
-            const isWide = image.width / image.height >= 1.6 && image.width >= 1000;
+            // Big screenshots sit two to a row. Small ones (narrow panels,
+            // dialogs) sit four to a row so they are not blown up and blurry.
+            const isWide = image.width >= 1000;
             return (
               <figure key={image.src} className={isWide ? "case-shot case-shot-wide" : "case-shot"}>
                 <Image
@@ -107,7 +107,7 @@ export default async function ProjectPage({ params }: Params) {
                   alt={image.alt}
                   width={image.width}
                   height={image.height}
-                  sizes={isWide ? "(max-width: 1376px) 100vw, 1376px" : "(max-width: 760px) 50vw, 450px"}
+                  sizes={isWide ? "(max-width: 760px) 100vw, 680px" : "(max-width: 760px) 50vw, 340px"}
                 />
               </figure>
             );
