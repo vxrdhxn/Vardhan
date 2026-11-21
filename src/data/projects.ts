@@ -72,6 +72,18 @@ export const projects: Project[] = [
     repo: "https://github.com/vxrdhxn/OpenPM",
     images: [
       {
+        src: "/projects/openpm/landing-dark.webp",
+        alt: "OpenPM landing page: Plan closer. Ship on time. Project management you run yourself",
+        width: 1919,
+        height: 959,
+      },
+      {
+        src: "/projects/openpm/signup-dark.webp",
+        alt: "OpenPM create-workspace page: set up an organization and its admin account",
+        width: 1919,
+        height: 961,
+      },
+      {
         src: "/projects/openpm/board-dark.webp",
         alt: "OpenPM project board in dark mode: To Do, In Progress, In Review and Done columns of task cards",
         width: 1720,
